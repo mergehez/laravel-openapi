@@ -73,7 +73,7 @@ class OperationsBuilder
             $security = $this->securityBuilder->build($route);
 
             $operation = Operation::create()
-                ->action(Str::lower($operationAttribute->method) ?: $route->method)
+                ->action(Str::lower($operationAttribute->method ?: $route->method))
                 ->tags(...$tags)
                 ->deprecated($this->isDeprecated($route->actionDocBlock))
                 ->description($route->actionDocBlock->getDescription()->render() !== '' ? $route->actionDocBlock->getDescription()->render() : null)
