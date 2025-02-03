@@ -31,7 +31,32 @@ class UserController extends Controller
      *
      * Creates new user or returns already existing user by email.
      */
-     #[OpenApi\Operation(security: 'BearerTokenSecurityScheme')]
+    #[OpenApi\Operation()]
+    #[OpenApi\SecurityRequirement('BearerTokenSecurityScheme')]
+    public function store(Request $request)
+    {
+        //
+    }
+}
+```
+
+### Specifying OAuth scopes
+
+```php
+use Vyuldashev\LaravelOpenApi\Attributes as OpenApi;
+
+#[OpenApi\PathItem]
+class UserController extends Controller
+{
+    /**
+     * Create new user.
+     *
+     * Creates new user or returns already existing user by email.
+     */
+    #[OpenApi\Operation()]
+    #[OpenApi\SecurityRequirement('OAuth2SecurityScheme', ['user_create', 'user_admin'])] // AND
+    // OR
+    #[OpenApi\SecurityRequirement('OAuth2SecurityScheme', ['superadmin'])]
     public function store(Request $request)
     {
         //

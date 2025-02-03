@@ -10,6 +10,7 @@ use GoldSpecDigital\ObjectOrientedOAS\Objects\SecurityScheme;
 use GoldSpecDigital\ObjectOrientedOAS\OpenApi;
 use phpDocumentor\Reflection\DocBlock;
 use Vyuldashev\LaravelOpenApi\Attributes\Operation as AttributesOperation;
+use Vyuldashev\LaravelOpenApi\Attributes\SecurityRequirement as AttributesSecurityRequirement;
 use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\SecurityBuilder;
 use Vyuldashev\LaravelOpenApi\Builders\Paths\OperationsBuilder;
 use Vyuldashev\LaravelOpenApi\Factories\SecuritySchemeFactory;
@@ -88,7 +89,7 @@ class SecurityBuilderTest extends TestCase
         $routeInfo->action = 'get';
         $routeInfo->name = 'test route';
         $routeInfo->actionAttributes = collect([
-            new AttributesOperation(security: JwtSecurityScheme::class),
+            new AttributesSecurityRequirement(JwtSecurityScheme::class),
         ]);
         $routeInfo->uri = '/example';
 
@@ -161,12 +162,8 @@ class SecurityBuilderTest extends TestCase
         $routeInfo->name = 'test route';
         $routeInfo->actionDocBlock = new DocBlock('Test');
         $routeInfo->actionAttributes = collect([
-            /**
-             * we can set secuity to null to turn it off, as
-             * that's the default value. So '' is next best
-             * option?
-             */
-            new AttributesOperation(security: ''),
+            new AttributesOperation(),
+            new AttributesSecurityRequirement(null),
         ]);
 
         /** @var OperationsBuilder */

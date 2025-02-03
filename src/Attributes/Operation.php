@@ -23,7 +23,7 @@ class Operation
     /**
      * @param  string|null  $id
      * @param  array  $tags
-     * @param  \Vyuldashev\LaravelOpenApi\Factories\SecuritySchemeFactory|string|null  $security
+     * @param  \Vyuldashev\LaravelOpenApi\Factories\SecuritySchemeFactory|string|null  $security Deprecated
      * @param  string|null  $method
      *
      * @throws InvalidArgumentException
@@ -34,6 +34,10 @@ class Operation
         $this->tags = $tags;
         $this->method = $method;
         $this->servers = $servers;
+
+        if ($security !== null) {
+            @trigger_error('Operation()\'s \'security\' argument is deprecated. Use the SecurityRequirement() attribute instead.', E_USER_DEPRECATED);
+        }
 
         if ($security === '') {
             //user wants to turn off security on this operation
